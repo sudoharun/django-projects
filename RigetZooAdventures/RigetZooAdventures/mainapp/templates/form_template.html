@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load tailwind_filters %}
+
+{% block content %}
+<div class="md:w-[75vw] lg:w-[50vw] mx-auto">
+    <h1 class="text-3xl text-bold py-2">{% block header %}{% endblock %}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <div class="flex flex-row w-full gap-2 py-2">
+            <button type="submit" class="p-2 bg-alt flex-1 border-2 border-gray-500 rounded">
+                {% block submit_btn %}{% endblock %}
+            </button>
+            <a href="{{ request.META.HTTP_REFERER }}" class="flex-1 p-2 bg-alt w-full border-2 border-gray-500 rounded">
+                <button type="button" class="text-center w-full">
+                    Cancel (go back)
+                </button>
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% load tailwind_filters %}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="{% block submit_btn %}{% endblock %}">
+    <a href="{{ request.META.HTTP_REFERER }}">Cancel (go home)</a>
+</form>

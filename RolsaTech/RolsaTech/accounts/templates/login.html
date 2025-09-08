@@ -1,0 +1,20 @@
+{% extends 'form_template.html' %}
+
+{% block title %}
+Log in
+{% endblock %}
+
+{% block preform %}
+<h1>Login</h1>
+{% endblock %}
+
+{% block value %}
+Log in
+{% endblock %}
+
+{% block postform %}
+<p class="text-center">
+    Don't have an account? Sign up
+    <a href="{% url 'signup' %}" class="text-blue-600 underline">here</a>
+</p>
+{% endblock %}

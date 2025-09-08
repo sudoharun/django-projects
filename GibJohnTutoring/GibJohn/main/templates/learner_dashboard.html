@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Your Dashboard
+{% endblock %}
+
+{% block content %}
+<div class="lg:w-1/3 lg:mx-auto">
+    <h1 class="border-b-2 border-alt mb-2 font-bold">Courses</h1>
+    <div class="space-y-2">
+        {% for course in courses %}
+        <div class="border-2 border-alt p-2">
+            <h3 class="font-bold">{{ course.title }}</h3>
+            <p>{{ course.description }}</p>
+            <div>
+                <a href="{% url 'view-course' course.id %}"><button type="button" class="text-black border-2 border-alt bg-alt font-bold p-2 mt-4">Go to course</button></a>
+                <a href="{% url 'remove-course-from-learner-account' course.id %}"><button type="button" class="text-black border-2 border-alt bg-alt font-bold p-2 mt-4">Remove course from account</button></a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <a href="{% url 'home' %}#subjects"><button type="button" class="text-black border-2 border-alt bg-alt font-bold p-2 mt-4">Add courses to account</button></a>
+</div>
+{% endblock %}

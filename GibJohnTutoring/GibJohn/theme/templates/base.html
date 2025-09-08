@@ -1,0 +1,67 @@
+{% load static tailwind_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    <title>{% block title %}{% endblock %}</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		{% tailwind_css %}
+		<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=home" />
+		<style>
+			{% block css %}{% endblock %}
+		</style>
+	</head>
+
+	<body class="leading-normal tracking-normal bg-background text-foreground">
+
+		<!-- Nav bar -->
+		<nav class="sticky top-0 w-full z-10 p-2 border-b-2 border-alt">
+			<div class="lg:w-5/6 lg:mx-auto flex flex-row justify-between">
+				<div class="flex flex-row space-x-4">
+					<h6 class="font-bold"><a class="hover:text-hover" href="{% url 'home' %}">GibJohn Tutoring</a></h6>
+				</div>
+				<div class="flex flex-row space-x-4">
+					{% if request.user.is_authenticated %}
+					<h6 class="font-bold"><a class="hover:text-hover" href="{% url 'log-out' %}">Log out</a></h6>
+					{% else %}
+					<h6 class="font-bold"><a class="hover:text-hover" href="{% url 'register' %}">Register</a></h6>
+					<h6 class="font-bold"><a class="hover:text-hover" href="{% url 'log-in' %}">Log in</a></h6>
+					{% endif %}
+				
+
+					{% if request.user.is_superuser %}
+					<h6 class="font-bold"><a class="hover:text-hover" href="{% url 'admin-view-models' %}">View models</a></h6>
+					{% endif %}
+
+					{% if not request.user.is_superuser and request.user.is_authenticated %}
+					{% if request.user.tutor %}
+					<h6 class="font-bold"><a class="hover:text-hover" href="{% url 'tutor-dashboard' %}">Dashboard</a></h6>
+					{% elif request.user.learner %}
+					<h6 class="font-bold"><a class="hover:text-hover" href="{% url 'learner-dashboard' %}">Dashboard</a></h6>
+					{% endif %}
+					{% endif %}
+				</div>
+			</div>
+		</nav>
+
+		
+		{% if messages %}
+		<div class="p-2">
+			<ul>
+				{% for message in messages %}
+					<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		</div>
+		{% endif %}
+		
+
+		<div class="p-2 lg:w-5/6 lg:mx-auto">
+			{% block content %}
+			{% endblock %}
+		</div>
+	</body>
+</html>

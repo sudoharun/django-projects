@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Cakey Cakes
+{% endblock %}
+
+{% block css %}
+.hero-bg {
+    background-image: url("{% static 'images/pink_cake.jpg' %}");
+    background-clip: content-box;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(40%);
+}
+
+.hero-text > h1 {
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7);
+}
+
+.hero-text > p {
+    text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.7);
+}
+{% endblock %}
+
+{% block content %}
+<main class="relative">
+    <!-- Hero -->
+    <div class="justify-center content-center h-full w-full flex flex-col">
+        <!-- Top text strip -->
+         <div class="items-center justify-center md:h-[5vh] w-full bg-slate-200 text-foreground flex flex-row space-x-4">
+            <h6><a class="hover:text-hover" href="#homeCatalogue"><span class="underline underline-offset-2">Cakes</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></a></h6>
+            <h6><a class="hover:text-hover" href="#homeRecipes"><span class="underline underline-offset-2">Recipes</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></a></h6>
+         </div>
+
+        <div class="w-full h-[60vh] content-center text-center text-white absolute top-[5vh] drop-shadow-2xl hero-text">
+            <h1 class="font-bold">Welcome to Cakey Cakes!</h1>
+            <p>Your go-to for all things cakes! Whether you want recipes, advice on recipes, or even cakes, we have got your back!</p>
+        </div>
+        <div class="hero-bg h-[60vh] w-full -z-10 border-y-1 border-foreground"></div>
+
+        <div class="content-center text-center md:h-[5vh] bg-slate-200">
+            <p>Special Offer! 50% off of all Christmas cakes & recipes!</p>
+         </div>
+    </div>
+
+    <div class="container m-auto w-10/12 justify-self-center text-foreground flex flex-col my-12 space-y-10">
+
+        <div id="aboutUs" class="content-center text-center flex-col w-full mb-12 scroll-mt-[7vh] md:scroll-mt-[6vh]">
+            <h1>About Us</h1>
+            <p>
+                At Cakey Cakes, we believe that every celebration deserves a slice of sweetness.
+                We are a passionate team of bakers and cake enthusiasts dedicated to bringing joy
+                to your special moments through our delicious, handcrafted cakes. Whether it's a birthday,
+                wedding, or any occasion that calls for a treat, we specialize in creating the perfect cake
+                to suit your style and taste.
+            </p>
+         </div>
+
+        <!-- Cakes Grid -->
+        <h1 id="homeCatalogue" class="pb-2 border-b-2 mb-4 border-foreground scroll-mt-[7vh] md:scroll-mt-[6vh]">Check out our catalogue of cakes!</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            {% for cake in cakes %}
+            <div class="tile bg-background border-2 border-foreground p-3 space-y-2 rounded-xl card">
+                <img class="rounded-xl border-2 border-foreground h-[40vh] w-full" src="{% static cake.recipe.image_link %}">
+                <h3>{{ cake.name }}</h3>
+                <p>{{ cake.description }}</p>
+                <a class="w-full" href="{% url 'more-details' 'mainapp' 'Cake' cake.id %}"><button class="mt-4 w-full hover:text-hover text-center p-1 bg-imagebg rounded-lg border-[1px] border-foreground" type="button">Check it out</button></a>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Recipes Grid -->
+        <h1 id="homeRecipes" class="pb-2 border-b-2 mb-4 border-foreground scroll-mt-[7vh] md:scroll-mt-[6vh]">Look through our recipes!</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            {% for recipe in recipes %}
+            <div class="tile bg-background border-2 border-foreground p-3 space-y-2 rounded-xl card">
+                <img class="rounded-xl border-2 border-foreground h-[40vh] w-full" src="{% static recipe.image_link %}">
+                <h3>{{ recipe.name }}</h3>
+                <p>{{ recipe.description }}</p>
+                <a class="w-full" href="{% url 'more-details' 'mainapp' 'Recipe' recipe.id %}"><button class="mt-4 w-full hover:text-hover text-center p-1 bg-imagebg rounded-lg border-[1px] border-foreground" type="button">Check it out</button></a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+{% endblock %}

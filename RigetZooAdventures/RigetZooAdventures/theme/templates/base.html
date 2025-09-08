@@ -1,0 +1,60 @@
+{% load static tailwind_tags %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        {% tailwind_preload_css %}
+        {% tailwind_css %}
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <style>
+			{% block css %}{% endblock %}
+		</style>
+    </head>
+
+    <body class="bg-background font-sans leading-normal tracking-normal pb-8">
+        <!-- Hidden div to initialize classes for forms in forms.py -->
+        <div class="hidden"></div>
+
+        <!-- Navigation bar -->
+        <nav class="flex flex-row gap-4 py-2 px-6 bg-alt text-black text-2xl border-b-2 border-gray-500">
+            <div id="nav-left" class="flex-1 flex flex-row gap-4 text-start">
+                <a href="{% url 'homepage' %}#">Home</a>
+                {% if not request.user.is_superuser %}
+                <a href="{% url 'homepage' %}#aboutUs">About Us</a>
+                {% endif %}
+            </div>
+            <div id="nav-middle" class="flex-1 flex flex-row gap-4 justify-center">
+                Riget Zoo Adventures
+            </div>
+            <div id="nav-right" class="flex-1 flex flex-row gap-4 justify-end">
+                {% if request.user.is_authenticated and not request.user.is_superuser %}
+                <a href="{% url 'user_bookings' %}">My Bookings</a>
+                <a href="{% url 'create_booking' %}">Create Booking</a>
+                {% endif %}
+
+                {% if request.user.is_authenticated is True %}
+                <a href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                <a href="{% url 'signup' %}">Sign up</a>
+                <a href="{% url 'login' %}">Login</a>
+                {% endif %}
+            </div>
+        </nav>
+
+        <!-- Messages -->
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <!-- Page -->
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>

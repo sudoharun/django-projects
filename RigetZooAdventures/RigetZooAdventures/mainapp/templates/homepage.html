@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block css %}
+
+#heroBg {
+    background-image: url("{% static 'images/hero.jpg' %}");
+    background-clip: content-box;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(40%);
+}
+
+{% endblock %}
+
+{% block content %}
+
+<!-- Hero -->
+<div id="hero" class="relative text-center text-white h-[60vh] w-full">
+    <div id="heroBg" class="absolute h-[60vh] w-full -z-10"></div>
+    <div id="heroFg" class="w-full h-full lg:w-[75vw] mx-auto gap-2 content-center">
+        <h1 class="text-4xl p-4">Welcome to Riget Zoo Adventures!</h1>
+        <p>
+            Riget Zoo Adventures offers an exciting, immersive experience for animal lovers
+            and adventure seekers alike. Nestled in lush landscapes, the park features a wide
+            variety of wildlife, from majestic lions to playful primates. Guests can embark on
+            guided safari tours, explore interactive exhibits, and even get up close with some
+            animals during feeding sessions. With family-friendly activities and educational
+            programs, Riget Zoo Adventures is a must-visit destination for anyone looking to
+            connect with nature while enjoying thrilling encounters.
+        </p>
+    </div>
+</div>
+
+<div id="aboutUs" class="text-center w-full h-[35vh] lg:w-[75vw] mx-auto gap-2 content-center">
+    <h1 class="text-4xl p-4">About Us</h1>
+    <p>
+        Riget Zoo Adventures has a rich history rooted in its dedication to wildlife conservation
+        and education. Originally founded as a small animal sanctuary, it quickly grew into a beloved
+        safari park, attracting visitors with its diverse collection of exotic animals. Over the years,
+        Riget Zoo Adventures expanded its exhibits, offering immersive safari tours and hands-on
+        experiences that allowed guests to learn about animals in a naturalistic setting. Its early
+        commitment to preservation and community engagement laid the foundation for its transformation
+        into the renowned destination it is today.
+    </p>
+</div>
+
+<div id="attractions" class="flex flex-col gap-12">
+    {% for attraction in attractions %}
+    <div class="flex flex-col w-full lg:w-[75vw] mx-auto gap-2">
+        <h3 class="text-3xl text-bold py-4">{{ attraction.name }}</h3>
+        <p>
+            {{ attraction.description }}
+        </p>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'form_with_cancel_template.html' %}
+
+{% block title %}
+Edit lesson
+{% endblock %}
+
+{% block link %}
+{% if request.user.is_superuser %}
+{% url 'admin-view-models' %}
+{% else %}
+{% url 'tutor-dashboard' %}
+{% endif %}
+{% endblock %}

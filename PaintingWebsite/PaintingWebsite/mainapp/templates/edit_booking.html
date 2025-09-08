@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block title %}
+    Editing Booking
+{% endblock %}
+
+{% block content %}
+
+<nav class="navbar navbar-expand-lg mb-1 sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'homepage' %}">City Paintings Ltd</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link" href="{% url 'homepage' %}#paintings">Paintings</a>
+                <a class="nav-link" href="{% url 'homepage' %}#artists">Artists</a>
+            </div>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="create-booking">Create Booking</a>
+                {% if authenticated %}
+                <a class="nav-link" href="manage-bookings">Manage Bookings</a>
+                <a class="btn btn-primary" href="log-out">Log Out</a>
+                {% else %}
+                <a class="btn btn-primary" href="log-in">Log In</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <h1 class="h1">Editing a Booking</h1>
+            <form method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                {% bootstrap_button type="update" content="Update" %}
+            </form>
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>
+
+{% endblock %}

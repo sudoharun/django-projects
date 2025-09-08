@@ -1,0 +1,214 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Homepage
+{% endblock %}
+
+{% block content %}
+
+<nav class="navbar navbar-expand-lg mb-1 sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'homepage' %}">City Paintings Ltd</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link" href="{% url 'homepage' %}#paintings">Paintings</a>
+                <a class="nav-link" href="{% url 'homepage' %}#artists">Artists</a>
+            </div>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="create-booking">Create Booking</a>
+                {% if authenticated %}
+                <a class="nav-link" href="manage-bookings">Manage Bookings</a>
+                <a class="btn btn-primary" href="log-out">Log Out</a>
+                {% else %}
+                <a class="btn btn-primary text-center" href="log-in">Log In</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+
+    <div class="row h-100 d-flex justify-content-center align-items-center text-end hero align-self-stretch">
+        <div class="col-6">
+            <h1 class="h1">This is City Paintings <span class="sup sub"><sup>Ltd</sup></span></h1>
+            <p>
+                Welcome to our art gallery, where creativity meets inspiration. 
+                Explore a diverse collection of captivating artworks that celebrate the beauty of expression and imagination.
+                From stunning paintings to intricate sculptures, each piece tells a unique story,
+                inviting you to experience the artist's vision. Join us in appreciating
+                the transformative power of art and discover your next favorite masterpiece!
+            </p>
+        </div>
+        <div class="col-6">
+            <img src="{% static 'images/hero.webp' %}" class="img-fluid">
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row text-center section-title" id="paintings">
+        <h1 class="h1">Discover our paintings</h1>
+    </div>
+
+    <div class="row">
+        <div class="align-items-center d-flex item item-left">
+            <div class="item-child justify-content-end">
+                <img src="{% static 'images/monalisa.jpg' %}" class="img-fluid rounded float-start">
+            </div>
+            <div class="item-child text-start">
+                <h1 class="h1">The Mona Lisa</h1>
+                <p>
+                    The Mona Lisa is a half-length portrait painting by Italian artist Leonardo da Vinci.
+                    Considered an archetypal masterpiece of the Italian Renaissance,
+                    it has been described as "the best known, the most visited, the most written about, the most sung about,
+                    [and] the most parodied work of art in the world". 
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row text-end item item-right">
+        <div class="d-flex align-items-center justify-content-end">
+            <div class="item-child">
+                <h1 class="h1">The Starry Night</h1>
+                <p>
+                    The Starry Night is an oil-on-canvas painting by the Dutch Post-Impressionist painter
+                    Vincent van Gogh, painted in June 1889.
+                    It depicts the view from the east-facing window of his asylum room at Saint-Rémy-de-Provence,
+                    just before sunrise, with the addition of an imaginary village.
+                </p>
+            </div>
+            <div class="item-child justify-content-end">
+                <img src="{% static 'images/thestarrynight.jpg' %}" class="img-fluid rounded float-start">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="align-items-center d-flex item item-left">
+            <div class="item-child justify-content-end">
+                <img src="{% static 'images/wandererabovetheseaoffog.jpeg' %}" class="img-fluid rounded float-start">
+            </div>
+            <div class="item-child text-start">
+                <h1 class="h1">Wanderer above the Sea of Fog</h1>
+                <p>
+                    Wanderer above the Sea of Fog is a painting by
+                    German Romanticist artist Caspar David Friedrich made in 1818.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row text-end item item-right">
+        <div class="d-flex align-items-center justify-content-end">
+            <div class="item-child">
+                <h1 class="h1">The Last Supper</h1>
+                <p>
+                    The Last Supper is a mural painting by the
+                    Italian High Renaissance artist Leonardo da Vinci,
+                    dated to c. 1495-1498, housed in the refectory of the
+                    Convent of Santa Maria delle Grazie in Milan, Italy.
+                </p>
+            </div>
+            <div class="item-child justify-content-end">
+                <img src="{% static 'images/thelastsupper.jpg' %}" class="img-fluid rounded float-start">
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row text-center" id="artists">
+        <h1 class="h1">Discover our artists</h1>
+    </div>
+
+    <div class="row">
+        <div class="align-items-center d-flex item item-left">
+            <div class="item-child justify-content-end">
+                <img src="{% static 'images/leonardodavinci.jpg' %}" class="img-fluid rounded float-start">
+            </div>
+            <div class="item-child text-start">
+                <h1 class="h1">Leonardo da Vinci</h1>
+                <p>
+                    Leonardo di ser Piero da Vinci was an
+                    Italian polymath of the High Renaissance
+                    who was active as a painter, draughtsman,
+                    engineer, scientist, theorist, sculptor, and architect.<br>
+                    Born: 15 April 1452, Anchiano, Italy<br>
+                    Died: 2 May 1519 (age 67 years), Château du Clos Lucé, Amboise, France
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row text-end item item-right">
+        <div class="d-flex align-items-center justify-content-end">
+            <div class="item-child">
+                <h1 class="h1">Vincent Van Gogh</h1>
+                <p>
+                    Vincent Willem van Gogh was a Dutch Post-Impressionist painter
+                    who is among the most famous and influential figures in the history of Western art.
+                    In just over a decade, he created approximately 2100 artworks,
+                    including around 860 oil paintings, most of them in the last two years of his life.<br>
+                    Born: 30 March 1853, Zundert, Netherlands<br>
+                    Died: 29 July 1890 (age 37 years), Auvers-sur-Oise, France
+                </p>
+            </div>
+            <div class="item-child justify-content-end">
+                <img src="{% static 'images/vincentvangogh.jpg' %}" class="img-fluid rounded float-start">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="align-items-center d-flex item item-left">
+            <div class="item-child justify-content-end">
+                <img src="{% static 'images/caspardavidfriedrich.jpg' %}" class="img-fluid rounded float-start">
+            </div>
+            <div class="item-child text-start">
+                <h1 class="h1">Caspar David Friedrich</h1>
+                <p>
+                    Caspar David Friedrich was a German Romantic landscape painter,
+                    generally considered the most important German artist of his generation.
+                    He is best known for his allegorical landscapes, which typically feature
+                    contemplative figures silhouetted against night skies, morning mists, barren trees or Gothic ruins.<br>
+                    Born: 5 September 1774, Greifswald, Germany<br>
+                    Died: 7 May 1840 (age 65 years), Dresden, Germany
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row text-end item item-right">
+        <div class="d-flex align-items-center justify-content-end">
+            <div class="item-child">
+                <h1 class="h1">Michelangelo</h1>
+                <p>
+                    Michelangelo di Lodovico Buonarroti Simoni, known mononymously as Michelangelo,
+                    was an Italian sculptor, painter, architect, and poet of the High Renaissance.
+                    Born in the Republic of Florence, his work was inspired by models
+                    from classical antiquity and had a lasting influence on Western art.<br>
+                    Born: 6 March 1475, Caprese Michelangelo, Italy<br>
+                    Died: 18 February 1564 (age 88 years), Rome, Italy
+                </p>
+            </div>
+            <div class="item-child justify-content-end">
+                <img src="{% static 'images/michelangelo.jpg' %}" class="img-fluid rounded float-start">
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+<br>
+<hr>
+<p class="text-center">The name City Paintings Ltd is a trademark of City Paintings Ltd</p>
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Consultations
+{% endblock %}
+
+{% block content %}
+<div class="flex-1 flex flex-col items-center justify-center m-4">
+    <div class="w-full md:w-4/5 lg:1/2 xl:w-1/3 text-start flex flex-col gap-4 bg-white border border-gray-400 rounded-xl p-4">
+        <h1>
+            My Consultations
+        </h1>
+        {% if consultations %}
+        <div class="cards overflow-auto grid grid-cols-1 md:grid-cols-2 gap-2">
+            {% for consultation in consultations %}
+            <div class="flex flex-col gap-1 bg-gray-50">
+                <h3>Consultation #{{ consultation.id }}</h3>
+                <p>
+                    <span class="material-symbols-rounded">calendar_today</span>
+                    {{ consultation.date }}
+                </p>
+                <p>
+                    <span class="material-symbols-rounded">schedule</span>
+                    {{ consultation.time }}
+                </p>
+                <div class="flex flex-row gap-1">
+                    <a href="{% url 'edit_consultation' consultation.id %}" class="flex-1"><button type="button" class="w-full">
+                        <span class="material-symbols-rounded">edit</span>
+                        Edit
+                    </button></a>
+                    <a href="{% url 'delete_consultation' consultation.id %}" class="flex-1"><button type="button" class="w-full">
+                        <span class="material-symbols-rounded">delete</span>
+                        Delete
+                    </button></a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        No consultations booked! Book one now by pressing the button below.
+        {% endif %}
+        <a href="{% url 'create_consultation' %}"><button type="button" class="w-full">
+            <span class="material-symbols-rounded">add_circle</span>
+            Book a consultation
+        </button></a>
+
+        <!-- Admin section to see all installations booked -->
+        {% if request.user.is_superuser %}
+        <h1>
+            All Consultations
+        </h1>
+        {% if all_consultations %}
+        <div class="cards overflow-auto grid grid-cols-1 md:grid-cols-2 gap-2">
+            {% for consultation in all_consultations %}
+            <div class="flex flex-col gap-1 bg-gray-50">
+                <h3>Consultation #{{ consultation.id }}</h3>
+                <p>
+                    <span class="material-symbols-rounded">person</span>
+                    {{ consultation.user }}
+                </p>
+                <p>
+                    <span class="material-symbols-rounded">calendar_today</span>
+                    {{ consultation.date }}
+                </p>
+                <p>
+                    <span class="material-symbols-rounded">schedule</span>
+                    {{ consultation.time }}
+                </p>
+                <div class="flex flex-row gap-1">
+                    <a href="{% url 'edit_consultation' consultation.id %}" class="flex-1"><button type="button" class="w-full">
+                        <span class="material-symbols-rounded">edit</span>
+                        Edit
+                    </button></a>
+                    <a href="{% url 'delete_consultation' consultation.id %}" class="flex-1"><button type="button" class="w-full">
+                        <span class="material-symbols-rounded">delete</span>
+                        Delete
+                    </button></a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        No booked consultations.
+        {% endif %}
+        {% endif %}
+    </div>
+</div>v
+{% endblock %}

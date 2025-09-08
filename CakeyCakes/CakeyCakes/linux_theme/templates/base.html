@@ -1,0 +1,75 @@
+{% load static tailwind_tags %}
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/js/all.min.js" integrity="sha512-1JkMy1LR9bTo3psH+H4SV5bO2dFylgOy+UJhMus1zF4VEFuZVu5lsi4I6iIndE4N9p01z1554ZDcvMSjMaqCBQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        {% tailwind_css %}
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+        <!-- Add background image here instead of styles.css because static doesn't work in static files -->
+        <style>
+            * {
+                font-family: "Parkinsans";
+            }
+
+            body {
+                background-image: url("{% static 'images/bg.png' %}");
+                background-repeat: repeat;
+            }
+            {% block css %}{% endblock %}
+        </style>
+    </head>
+
+    <body>
+        <nav class="sticky top-0 bg-background text-foreground w-full z-10">
+            <div class="flex flex-col md:flex-row border-b-2 border-foreground p-3 md:h-[6vh] justify-between content-center">
+                <div class="md:flex-1 text-start md:text-center flex flex-row justify-between md:justify-center md:space-x-8 md:items-center">
+                    <h5><a class="hover:text-hover" href="{% url 'homepage' %}#">Cakey Cakes</a></h5>
+                    <button id="navmenu" class="block md:hidden"><i class="fa-solid fa-bars"></i></button>
+                </div>
+                <div id="navstart" class="hidden md:flex md:flex-1 flex-col md:flex-row text-start justify-start md:space-x-8 md:items-center md:order-first">
+                    <h5><a class="hover:text-hover" href="{% url 'homepage' %}">Home</a></h5>
+                    <h5><a class="hover:text-hover" href="#">Contact Us</a></h5>
+                </div>
+                <div id="navend" class="hidden md:flex md:flex-1 flex-col md:flex-row text-start md:text-end md:justify-end md:space-x-8 md:items-center md:order-last">
+                    {% if request.user.is_authenticated %}
+                    <h5><a class="hover:text-hover" href="{% url 'dashboard' %}">Dashboard</a></h5>
+                    <h5><a class="hover:text-hover" href="{% url 'log-out' %}">Log Out</a></h5>
+                    {% else %}
+                    <h5><a class="hover:text-hover" href="{% url 'log-in' %}">Log In</a></h5>
+                    <h5><a class="hover:text-hover" href="{% url 'sign-up' %}">Sign Up</a></h5>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+
+        <script>
+            const hamIcon = document.getElementById('navmenu');
+            const hamMenuStart = document.getElementById('navstart');
+            const hamMenuEnd = document.getElementById('navend');
+
+            hamIcon.addEventListener('click', () => {  // Added the missing comma here
+                hamMenuStart.classList.toggle('hidden');
+                hamMenuEnd.classList.toggle('hidden');
+            });
+        </script>
+
+        {% if messages %}
+            <ul class="w-full bg-background text-foreground p-2 text-center">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>

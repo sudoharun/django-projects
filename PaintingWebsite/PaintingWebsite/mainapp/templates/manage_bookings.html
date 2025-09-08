@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Managing Bookings
+{% endblock %}
+
+{% block content %}
+
+<nav class="navbar navbar-expand-lg mb-1 sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'homepage' %}">City Paintings Ltd</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link" href="{% url 'homepage' %}#paintings">Paintings</a>
+                <a class="nav-link" href="{% url 'homepage' %}#artists">Artists</a>
+            </div>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="create-booking">Create Booking</a>
+                {% if authenticated %}
+                <a class="nav-link" href="manage-bookings">Manage Bookings</a>
+                <a class="btn btn-primary" href="log-out">Log Out</a>
+                {% else %}
+                <a class="btn btn-primary" href="log-in">Log In</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row justify-content-center align-items-center position-absolute top-50 start-50 translate-middle">
+        <table class="table table-bordered">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Time</th>
+                <th>Teacher</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.name }}</td>
+                <td>{{ booking.email }}</td>
+                <td>{{ booking.time }}</td>
+                <td>{{ booking.teacher }}</td>
+                <td><a href="edit-booking/{{ booking.id }}">Edit</a></td>
+                <td><a href="delete-booking/{{ booking.id }}">Delete</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+{% endblock %}

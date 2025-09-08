@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+<div class="p-2 flex flex-col gap-2">
+    <section id="hero" class="w-full md:w-4/5 2xl:w-1/2 md:mx-auto text-center flex flex-col lg:flex-row gap-2 bg-white border border-gray-400 rounded-xl p-4 shadow-lg">
+        <div id="heroText" class="flex-1 flex flex-col justify-center items-center lg:items-end text-center lg:text-end p-4 gap-2">
+            <h1 id="heroTitle" class="">Empowering the Future with Solar & Electric Charging Solutions</h1>
+            <p id="heroDesc" class="">
+                At Rolsa Technologies, we're dedicated to creating a sustainable future by offering top-tier solar panel installations and electric vehicle charging solutions.
+                Our expert team ensures seamless integration of renewable energy, helping you reduce your carbon footprint while saving on energy costs.
+            </p>
+        </div>
+        <div id="heroImgContainer" class="flex-1 flex items-center justify-center">
+            <img id="heroImg" class="object-cover h-[50vh] w-full border border-gray-400 rounded-md shadow-lg" src="{% static 'images/hero.jpg' %}" alt="An image of a tree on a field">
+        </div>
+    </section>
+
+    <div id="aboutUs" class="w-full md:w-4/5 2xl:w-1/2 md:mx-auto text-center flex flex-col gap-2 bg-white border border-gray-400 rounded-xl p-4 shadow-lg">
+        <h3>About us</h3>
+        <p>
+            Welcome to Rolsa Technologies, where innovation meets sustainability!
+            Founded with a vision to empower a greener future, we specialize in the installation
+            of high-quality solar panels and electric vehicle chargers. Our mission is to provide cutting-edge
+            solutions that not only reduce energy costs but also contribute to a healthier planet.
+        </p>
+        <p>
+            At Rolsa Technologies, we believe that renewable energy is the key to a sustainable future.
+            Our team of experienced professionals is dedicated to delivering personalized service and expert guidance,
+            ensuring that each project is tailored to meet the unique needs of our clients. Whether you’re a homeowner
+            looking to harness the power of the sun or a business aiming to install electric vehicle chargers,
+            we are here to help you make the transition to clean energy seamless and efficient.
+        </p>
+        <p>
+            We take pride in our commitment to quality, reliability, and customer satisfaction.
+            From the initial consultation to the final installation and beyond, we are with you every step of the way.
+            Our state-of-the-art technology and industry best practices guarantee that you receive the most efficient and effective solutions available.
+        </p>
+        <p>
+            Join us at Rolsa Technologies in making a positive impact on the environment while enjoying the benefits of modern energy solutions.
+            Together, let’s pave the way for a sustainable tomorrow!
+        </p>
+    </div>
+
+    <div class="w-full md:w-4/5 2xl:w-1/2 md:mx-auto text-center flex flex-col gap-2 bg-white border border-gray-400 rounded-xl p-4 shadow-lg">
+        <div class="flex flex-col gap-4">
+            <h3 class="text-center">Products on the market</h3>
+            {% if products %}
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 cards text-start">
+                {% for product in products %}
+                <div class="flex flex-col gap-1 bg-gray-50">
+                    <img
+                        src="{{ product.image.url }}"
+                        alt="Picture of {{ product }}"
+                        class="object-cover border border-gray-400 rounded min-h-[250px] max-h-[250px] w-full shadow-md mb-2"
+                    >
+                    <h4>{{ product.name }}</h4>
+                    <p class="h-full">
+                        {{ product.description }}
+                    </p>
+                    <p>
+                        Installation cost:
+                        £{{ product.installation_cost }}
+                    </p>
+                    {% if request.user.is_superuser %}
+                    <div class="flex flex-row gap-2">
+                        <a href="{% url 'edit_product' product.id %}" class="flex-1"><button type="button">
+                            <span class="material-symbols-rounded">edit</span>
+                            Edit Product
+                        </button></a>
+                        <a href="{% url 'delete_product' product.id %}" class="flex-1"><button type="button"">
+                            <span class="material-symbols-rounded">delete</span>
+                            Delete Product
+                        </button></a>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p class="text-center">No products available on the market at the moment.</p>
+            {% endif %}
+            {% if request.user.is_superuser %}
+            <a href="{% url 'create_product' %}"><button type="button">
+                <span class="material-symbols-rounded">add_circle</span>
+                Add New Product
+            </button></a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="w-full md:w-4/5 2xl:w-1/2 md:mx-auto text-center flex flex-col gap-4 bg-white border border-gray-400 rounded-xl p-4 shadow-lg">
+        <h3 class="text-center">Frequently Asked Questions</h3>
+        <div class="flex flex-col gap-2">
+            <div>
+                <h5 class="text-center">How do I book an installation for a specific product?</h5>
+                <p>
+                    To book an installation for your preferred product:
+                    Make sure you are logged in, and on your navigation bar, there should be a button "Installations".
+                    Click on it, and it will redirect you to your installations page. At the bottom of the visible section,
+                    there should be a button "Book installation". Click it, and then you will be redirected to a page
+                    where you should be able to select your preferred product for installation.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'form_template.html' %}
+
+{% block title %}
+My Account
+{% endblock %}
+
+{% block preform %}
+<h1>My Account</h1>
+{% endblock %}
+
+{% block value %}
+<span class="material-symbols-rounded">save</span>
+Save
+{% endblock %}
+
+{% block postform %}
+<a href="{% url 'home' %}"><button type="button">
+    <span class="material-symbols-rounded">home</span>
+    Go Home
+</button></a>
+<p class="text-center">
+    Change your password safely and securely
+    <a href="{% url 'change_password' %}" class="text-blue-600 underline">here</a>
+</p>
+<a href="{% url 'delete_account' %}"><button type="button">
+    <span class="material-symbols-rounded">delete</span>
+    Delete Account
+</button></a>
+{% endblock %}

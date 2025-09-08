@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block css %}
+.hero-bg {
+    background-image: url("{% static 'images/hero.jpg' %}");
+    background-clip: content-box;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(25%);
+}
+{% endblock %}
+
+{% block content %}
+
+<!-- Hero -->
+<div class="relative h-[40vh] text-center hero text-[#f5f5f5]">
+    <div class="absolute hero-bg h-full w-full -z-10"></div>
+    <div class="content-center h-full lg:w-2/3 mx-auto">
+        <h1 class="font-bold">Welcome to GibJohn Tutoring</h1>
+        <p>
+            GibJohn is an innovative online tutoring platform that connects
+            students with expert tutors for personalized learning experiences.
+            With a wide range of subjects and flexible scheduling,
+            GibJohn helps students achieve their academic goals through
+            interactive lessons and one-on-one support, all from the comfort of home.
+        </p>
+    </div>
+</div>
+
+<!-- Subjects -->
+<h3 id="subjects" class="w-full border-b-2 border-alt font-bold flex flex-col space-2 mb-2">Browse our catalog of different subjects</h3>
+<div class="">
+    {% for subject in subjects %}
+    <h4 class="font-bold mb-2">{{ subject.title }}</h4>
+    <div class="w-full grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-2">
+        {% for course in courses %}
+        {% if course.subject.title == subject.title %}
+        <div class="w-full h-full space-y-2 border-2 border-alt p-2 flex flex-col justify-between">
+            <div class="">
+                <h5 class="font-bold border-b-2 border-alt pb-2 mb-2">{{ course.title }}{% if course.author %} by {{ course.author }}{% endif %}</h5>
+                <p>{{ course.description }}</p>
+            </div>
+            <a href="{% url 'view-course' course.id %}"><button type="button" class="text-black border-2 border-alt bg-alt text-center mt-auto font-bold w-full">View Course</button></a>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% empty %}
+    <p>Coming soon...</p>
+    {% endfor %}
+</div>
+
+{% endblock %}

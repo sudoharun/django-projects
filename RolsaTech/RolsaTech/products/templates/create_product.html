@@ -1,0 +1,20 @@
+{% extends 'form_template.html' %}
+
+{% block title %}
+Create a product
+{% endblock %}
+
+{% block preform %}
+<h1>Create a product</h1>
+{% endblock %}
+
+{% block value %}
+<span class="material-symbols-rounded">save</span>
+Create
+{% endblock %}
+
+{% block postform %}
+<a href="{% url 'home' %}#products"><button type="button">
+    Go to products
+</button></a>
+{% endblock %}

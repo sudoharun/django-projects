@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Your Dashboard
+{% endblock %}
+
+{% block content %}
+<div class="flex flex-col lg:w-1/3 lg:mx-auto">
+    <h1 class="font-bold">Courses</h1>
+    <table class="table-fixed text-center">
+        <tr class="border-2 border-alt p-2">
+            <th class="border-2 border-alt p-2">Title</th>
+            <th class="border-2 border-alt p-2">Edit?</th>
+            <th class="border-2 border-alt p-2">Delete?</th>
+        </tr>
+        {% for course in courses %}
+        <tr class="border-2 border-alt p-2">
+            <td class="border-2 border-alt p-2">{{ course.title }}</td>
+            <td class="border-2 border-alt p-2 underline"><a href="{% url 'edit-course' course.id %}">Edit</a></td>
+            <td class="border-2 border-alt p-2 underline"><a href="{% url 'delete-course' course.id -1 %}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{% url 'create-course' %}"><button type="button" class="text-black border-2 border-alt bg-alt font-bold mt-2 p-2">Create a new course</button></a>
+
+    <h1 class="font-bold">Lessons</h1>
+    <table class="table-fixed text-center">
+        <tr class="border-2 border-alt p-2">
+            <th class="border-2 border-alt p-2">Title</th>
+            <th class="border-2 border-alt p-2">Edit?</th>
+            <th class="border-2 border-alt p-2">Delete?</th>
+        </tr>
+        {% for lesson in lessons %}
+        <tr class="border-2 border-alt p-2">
+            <td class="border-2 border-alt p-2">{{ lesson.title }}</td>
+            <td class="border-2 border-alt p-2 underline"><a href="{% url 'edit-lesson' lesson.id %}">Edit</a></td>
+            <td class="border-2 border-alt p-2 underline"><a href="{% url 'delete-lesson' lesson.id -1 %}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{% url 'create-lesson' %}"><button type="button" class="text-black border-2 border-alt bg-alt font-bold mt-2 p-2">Create a new lesson</button></a>
+</div>
+{% endblock %}

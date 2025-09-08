@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Admin
+{% endblock %}
+
+{% block content %}
+
+<div class="flex flex-col gap-10 w-full p-2 md:w-[75vw] lg:w-[50vw] mx-auto">
+    <div class="">
+        <h1 class="text-3xl text-bold mb-2">Users</h1>
+        <div class="flex flex-col gap-2">
+            {% for user in users %}
+            <div class="p-2 border-2 border-gray-500 rounded bg-alt">
+                <h3 class="text-xl">{{ user.username }}</h3>
+                {% if not user.is_superuser %}
+                <a href="{% url 'delete_user' user.id %}">
+                    <button class="p-2 mt-2 bg-background border-2 border-gray-500 rounded">
+                        Delete user
+                    </button>
+                </a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="">
+        <h1 class="text-3xl text-bold mb-2">Attractions</h1>
+        <div class="flex flex-col gap-2">
+            {% for attraction in attractions %}
+            <div class="p-2 border-2 border-gray-500 rounded bg-alt">
+                <h3 class="text-xl">{{ attraction.name }}</h3>
+                <p>{{ attraction.description }}</p>
+                <a href="{% url 'edit_attraction' attraction.id %}">
+                    <button class="p-2 mt-2 bg-background border-2 border-gray-500 rounded">
+                        Edit attraction
+                    </button>
+                </a>
+                <a href="{% url 'delete_attraction' attraction.id %}">
+                    <button class="p-2 mt-2 bg-background border-2 border-gray-500 rounded">
+                        Delete attraction
+                    </button>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        <a href="{% url 'create_attraction' %}">
+            <button class="p-2 mt-2 bg-alt border-2 border-gray-500 rounded">
+                Add attraction
+            </button>
+        </a>
+    </div>
+
+    <div class="">
+        <h1 class="text-3xl text-bold mb-2">Bookings</h1>
+        <div class="flex flex-col gap-2">
+            {% for booking in bookings %}
+            <div class="p-2 border-2 border-gray-500 rounded bg-alt">
+                <h3 class="text-xl">{{ booking }}</h3>
+                <ul>
+                    <li>
+                        {% if booking.user %}
+                            Created by {{ booking.user.username }}
+                        {% else %}
+                            No user associated with this booking
+                        {% endif %}
+                    </li>
+                    <li>Booked for {{ booking.datetime }}</li>
+                    <li>Lasts {{ booking.duration }} days</li>
+                    <li>{{ booking.children }} children</li>
+                    <li>{{ booking.adults }} adults</li>
+                    {% if booking.hotel %}
+                    <li>Hotel included</li>
+                    {% else %}
+                    <li>Hotel not included</li>
+                    {% endif %}
+                </ul>
+                <a href="{% url 'edit_booking' booking.id %}">
+                    <button class="p-2 mt-2 bg-background border-2 border-gray-500 rounded">
+                        Edit booking
+                    </button>
+                </a>
+                <a href="{% url 'delete_booking' booking.id %}">
+                    <button class="p-2 mt-2 bg-background border-2 border-gray-500 rounded">
+                        Delete booking
+                    </button>
+                </a>
+            </div>
+        {% endfor %}
+        </div>
+        <a href="{% url 'create_booking' %}">
+            <button class="p-2 mt-2 bg-alt border-2 border-gray-500 rounded">
+                Create booking
+            </button>
+        </a>
+    </div>
+</div>
+
+{% endblock %}
